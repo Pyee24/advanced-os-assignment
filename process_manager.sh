@@ -1,17 +1,30 @@
 #!/bin/bash
+critical_pid = ("1" "$$")
 
-system_usage()
+show_cpu_memory()
 {
-    echo " CPU and Memory Usage"
-    echo
-    echo "CPU Load"
-    uptime
-    echo
-    echo "Memory usage"
-    echo
-    free -h
-    echo
-    log_action "Displayed CPU and Memory usage"
+    echo "CPU and Memory usage"
+    top -b -n1 | head -n5
+
 }
 
-system_usage
+show_top_processes()
+{
+    echo "Top 10 Memory using processes"
+    ps aux --sort=-%mem | head -n 11
+}
+
+terminate_process()
+{
+    read -p "Enter process PID" pid
+
+    for pd in "$critical_pid)
+
+    
+}
+
+show_cpu_memory
+
+show_top_processes
+
+
