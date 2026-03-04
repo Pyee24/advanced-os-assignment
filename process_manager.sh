@@ -57,7 +57,7 @@ terminate_process()
     esac
 }
 
-Disk_inspection_archive()
+disk_inspection_archive()
 {
     read -p "Enter directory for inspection: " dir
 
@@ -119,7 +119,7 @@ menu() {
                 terminate_process
                 ;;
             4)
-                Disk_inspection_archive
+                disk_inspection_archive
                 ;;
             5)
                 read -p "Are you sure you wish to exit? (Y/N): " ans
@@ -143,4 +143,4 @@ menu() {
 
 
 
-menu()
+menu
