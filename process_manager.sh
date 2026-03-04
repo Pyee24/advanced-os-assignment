@@ -18,7 +18,14 @@ terminate_process()
 {
     read -p "Enter process PID" pid
 
-    for pd in "$critical_pid)
+    for cp in "${critical_pid[@]}" ; do
+        if [[ "pid" == "$cp"]] ; then 
+            echo "Attempted to terminate critical process"
+            return
+        fi
+    done
+
+    
 
     
 }
