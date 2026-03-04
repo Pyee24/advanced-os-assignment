@@ -25,9 +25,19 @@ terminate_process()
         fi
     done
 
+    if ! ps -p "$pid" > /dev/null 2>&1; then
+        echo " No active process of this PID"
+        return
+    fi
     
 
-    
+    read -p "Are you ure you wish to terminate this process $pid? (Y/N)" ans
+    case "$ans" in
+        [Yy])
+            kill "$pid" && echo "Process $pid terminated";;
+        *)
+            echo "Cancelled" ;;
+    esac
 }
 
 show_cpu_memory
