@@ -96,13 +96,43 @@ Disk_inspection_archive()
         log_action "Archive Log exceeded 1GB , current size ${archive_size} bytes"
     fi
 
+    menu()
+    {
+        while true; do  
+            echo "CCCU Data Centre Process and Resource Manangment System"
 
+            echo "1) Display CPU and Memory Usage"
+            echo "2) List top 10 Memory processes"
+            echo "3) Terminate a process"
+            echo "4) Inspect a Disk and Log Archiving"
+            echo "5) Exit system"
+            echo -p "Please choose an option from the list" choice
 
-
+            case "$choice" in
+             1) show_cpu_memory ;;
+             2) show_top_processes ;;
+             3) terminate_process ;;
+             4) Disk_inspection_archive ;;
+             5) 
+                read -p "Are you sure you wish to exit? (Y/N)" ans
+                case "$ans" in
+                    [Y/y])
+                        echo "You have exited the system"
+                        log_action "System exited"
+                        exit 0
+                        ;;
+                    *)
+                        echo "Exit cancelled" ;;
+                esac
+                ;;
+            *)
+                echo "Invalid Option" ;;
+            esac
+    done
+    }
 }
 
-show_cpu_memory
+menu
 
-show_top_processes
 
 
