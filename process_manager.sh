@@ -1,8 +1,8 @@
 #!/bin/bash
-critical_pid = ("1" "$$")
-ARCHIVE_DIR = "ArchiveLogs"
-SIZE_LIMIT = $((50*1024*1024))
-ARCHIVE_MAX = $((1024*1024*1024))
+critical_pid=("1" "$$")
+ARCHIVE_DIR="ArchiveLogs"
+SIZE_LIMIT=$((50*1024*1024))
+ARCHIVE_MAX=$((1024*1024*1024))
 LOG_FILE="system_log.txt"
 
 log_action()
