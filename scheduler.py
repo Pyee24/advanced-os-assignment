@@ -32,16 +32,16 @@ def load_jobs():
             pass
         return jobs
 
-def save_job(jobs)
+def save_job(jobs):
     with open(JOB_QUEUE, "w") as f:
         for job in jobs:
             f.write(f"{{job['student_ID']},{job['job_name']},{job['exec_time']},{job['priority']}\n}")
 
-def completed_job(job)
+def completed_job(job):
     with open(COMPLETED_JOB, "w") as f:
         f.write(f"{job['student_ID']},{job['job_name']},{job['priority']}\n")
 
-def view_job_queue()
+def view_job_queue():
     jobs = load_jobs
         if not jobs:
             print("No pending jobs")
@@ -50,7 +50,7 @@ def view_job_queue()
             for j in jobs
                 print(f"Student: {j['student_ID']} | Job: {j['job_name']} | Time: {j['exec_time']}s | Priority: {j['priority']}")
 
-def add_job()
+def add_job():
     student_ID = input("Enter Student ID")
     job_name = input("Enter the name of the job")
     exec_time = int(input("Enter aporximate job completion time"))
@@ -62,7 +62,7 @@ def add_job()
     log_event(student_ID,job_name, "Job Addition")
     print("Job added successfully")
         
-def round_robin()
+def round_robin():
     jobs = load_jobs()
         if not jobs:
             print("No currents jobs to process")
@@ -88,7 +88,7 @@ def round_robin()
         
         print("Round robin complete")
 
-def priorty_scheduling()
+def priorty_scheduling():
     jobs = load_jobs()
             if not jobs:
                 print("No currents jobs to process")
@@ -105,6 +105,59 @@ def priorty_scheduling()
 
             save_job([])
             print("Priority scheudling complete")
+
+def main_menu():
+    while True:
+        print("CCCU Job Scheduler")
+        print("1) View pendng jobs")
+        print("2) Submit a job request")
+        print("3) Begin job processing")
+        print("4) View completed jobs")
+        print("5) Exit")
+
+        choice= input("Select option")
+
+        if choice == "1":
+            view_job_queue()
+
+        elif choice == "2":
+            add_job()
+        
+        elif choice == "3":
+            print("Choose processing option")
+            print("1) Round robin")
+            print("2) Priority scheduling")
+            option = input("Selection option :")
+                if option == "1":
+                    round_robin()
+
+                elif option == "2":  
+                    priorty_scheduling()
+                
+                else
+                    print("Invald option")
+                
+        elif choice == "4":
+            if not os.path.exists(COMPLETED_JOB):
+                print("No completed jobs")
+            else:
+                print("Completed jobs:")
+                with open(COMPLETED_JOB, "r") as f:
+                    print(f.read())
+        elif choice == "5":
+            exit = input("Are you sure you wish to exit? (Y/N)")
+            if exit.lower() == "y"
+                print("Exiting now")
+                break
+        else:
+            print("Invalid option")
+if __name__ == "__main__":
+    main_menu()
+
+
+
+ 
+
 
 
 
