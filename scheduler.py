@@ -30,3 +30,24 @@ def save_job(jobs)
 def completed_job(job)
     with open(COMPLETED_JOB, "w") as f:
         f.write(f"{job['student_ID']},{job['job_name']},{job['priority']}\n")
+
+def view_job_queue()
+    jobs = load_jobs
+        if not jobs:
+            print("No pending jobs")
+            return
+        print("Pending job list")
+            for j in jobs
+                print(f"Student: {j['student_ID']} | Job: {j['job_name']} | Time: {j['exec_time']}s | Priority: {j['priority']}")
+
+def add_job()
+    student_ID = input("Enter Student ID")
+    job_name = input("Enter the name of the job")
+    exec_time = int(input("Enter aporximate job completion time"))
+    priority = int(input("Enter job priority (1-10)"))
+
+    job = f"{student_ID},{job_name},{exec_time},{priority}"
+    with open(JOB_QUEUE, "a") as f:
+        f.write(job)
+        
+         
