@@ -78,6 +78,27 @@ def round_robin()
         
         print("Round robin complete")
 
+def priorty_scheduling()
+    jobs = load_jobs()
+            if not jobs:
+                print("No currents jobs to process")
+                return
+            print("Priorty processing")
+
+            jobs.sort(key=lambda x: x["priorty"] , reverse=True)
+
+            for job in jobs:
+                print(f""Running {job['job_name']} (Priority {job['priority']}) for {job['exec_time']}s")
+                time.sleep(1)
+                completed_job(job)
+
+            save_job([])
+            print("Priority scheudling complete")
+
+
+
+
+
         
 
          
