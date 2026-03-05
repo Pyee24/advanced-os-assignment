@@ -1,10 +1,17 @@
 #!/usr/bin/env python3
 import time
 import os
+from datetime import datetime
 
 JOB_QUEUE = "job_queue.txt"
 COMPLETED_JOB = "completed_job.txt"
 ROUND_ROBIN_TIME = 5
+LOG_FILE="scheduler_log.txt"
+
+def log_event(student_ID, job_name, scheduling_type):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    with open(LOG_FILE, "a") as log:
+        log.write(f"{timestamp} | {student_id} | {job_name} | {scheduling_type}\n")
 
 def load_jobs():
         jobs = []
@@ -52,6 +59,8 @@ def add_job()
     job = f"{student_ID},{job_name},{exec_time},{priority}"
     with open(JOB_QUEUE, "a") as f:
         f.write(job)
+    log_event(student_ID,job_name, "Job Addition")
+    print("Job added successfully")
         
 def round_robin()
     jobs = load_jobs()
@@ -62,6 +71,7 @@ def round_robin()
         
         while jobs:
             job=job.pop(0)
+            log_event(job["student_ID"], job["job_name"], "ROUND ROBIN")
 
             if job["exec_time"] > ROUND_ROBIN_TIME:
                 print(f"Running job : {job['job_name']}")
@@ -88,6 +98,7 @@ def priorty_scheduling()
             jobs.sort(key=lambda x: x["priorty"] , reverse=True)
 
             for job in jobs:
+                log_event(job["student_id"], job["job_name"], "PRIORITY")
                 print(f""Running {job['job_name']} (Priority {job['priority']}) for {job['exec_time']}s")
                 time.sleep(1)
                 completed_job(job)
