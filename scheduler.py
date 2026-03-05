@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
+import time
+import os
 
 JOB_QUEUE = "job_queue.txt"
 COMPLETED_JOB = "completed_job.txt"
+ROUND_ROBIN_TIME = 5
 
 def load_jobs():
         jobs = []
@@ -50,4 +53,31 @@ def add_job()
     with open(JOB_QUEUE, "a") as f:
         f.write(job)
         
+def round_robin()
+    jobs = load_jobs()
+        if not jobs:
+            print("No currents jobs to process")
+            return
+        print("Round robin processing")
+        
+        while jobs:
+            job=job.pop(0)
+
+            if job["exec_time"] > ROUND_ROBIN_TIME:
+                print(f"Running job : {job['job_name']}")
+                time.sleep(1)
+                job["exec_time"] -= ROUND_ROBIN_TIME
+                jobs.append(job)
+            
+            else 
+                print(f"Completing {job['job_name']} ")
+                time.sleep(1)
+                completed_job(job)
+            
+            save_job(jobs)
+        
+        print("Round robin complete")
+
+        
+
          
