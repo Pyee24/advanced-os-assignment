@@ -60,7 +60,7 @@ def add_job():
     student_ID = input("Enter Student ID")
     job_name = input("Enter the name of the job")
     exec_time = int(input("Enter aporximate job completion time"))
-    priority = int(input("Enter job priority (1-10)"))
+    priority = int(input("Enter job priority (1 (lowest) -10 (highest) )"))
 
     job = f"{student_ID},{job_name},{exec_time},{priority}\n"
     with open(JOB_QUEUE, "a") as f:
