@@ -3,7 +3,7 @@ import time
 
 SUBMISSION_DIR = "submissions"
 SUBMISSION_LOG = "submission_log.txt"
-LOGIN_LOg = "login_log.txt"
+LOGIN_LOG = "login_log.txt"
 
 if not os.path.exists(SUBMISSION_DIR):
     os.makedirs(SUBMISSION_DIR)
@@ -69,6 +69,31 @@ def check_submission():
         print("File has been submitted")
     else:
         print("File not submitted")
+
+def login_sim():
+    username = input("Input username:")
+
+    if failed_attempts.get(username, 0) >= 3
+        print("Account locked")
+        return
+    
+    now = time.time()
+    if username in last_attempt_time and now - last_attempt_time[username] < 5:
+        print("Too many attempts within 5 seconds, suspicsious behaviour detected ")
+    
+    last_attempt_time[username] = now
+
+
+    password = input("Please input password(simulated password= password1):")
+
+    if password == "password1":
+        print("Successful login")
+        failed_attempts[username] = 0
+        
+    else:
+        print("Login unsuccessful")
+        failed_attempts[username] = failed_attempts.get(username, 0) + 1
+
 
     
 
