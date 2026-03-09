@@ -5,6 +5,9 @@ SUBMISSION_DIR = "submissions"
 SUBMISSION_LOG = "submission_log.txt"
 LOGIN_LOG = "login_log.txt"
 
+failed_attempts = {}
+last_attempt_time = {}
+
 if not os.path.exists(SUBMISSION_DIR):
     os.makedirs(SUBMISSION_DIR)
 
@@ -14,14 +17,14 @@ if not os.path.exists(SUBMISSION_DIR):
 def file_validation(filename):
     allowed_filename = [".pdf" , ".docx"]
 
-    if not any(filename.endswith(name) for name in allowed_filename)
+    if not any(filename.endswith(name) for name in allowed_filename):
         return False, ("Invalid file type")
 
     try:
         size = os.path.getsize(filename) / (1024 * 1024)
-            if size > 5:
-                return False, ("File is too large")
-    except FileNotFoundError
+        if size > 5:
+            return False, ("File is too large")
+    except FileNotFoundError:
         return False, "File doesnt exist"
     
     return True, "File passed validation"
@@ -80,7 +83,7 @@ def submission_list():
 
 def check_submission():
     filename = input("Input file for checking")
-    if filename = os.listdir(SUBMISSION_DIR):
+    if filename in os.listdir(SUBMISSION_DIR):
         print("File has been submitted")
     else:
         print("File not submitted")
@@ -97,7 +100,7 @@ def log_submission(filename):
 def login_sim():
     username = input("Input username:")
 
-    if failed_attempts.get(username, 0) >= 3
+    if failed_attempts.get(username, 0) >= 3:
         print("Account locked")
         return
     
@@ -121,34 +124,34 @@ def login_sim():
 
 def log_login(username)
     with open(LOGIN_LOG, "a") as log:
-        log.write(f"{time.ctime()} - {username} - {status}\n")
+        log.write(f"{time.ctime()} - {username}\n")
 
 def menu():
+    while True:
+        print("CCCU Examination Submission System")
+        print("1) Submit assingment")
+        print("2) Check if file submitted")
+        print("3) View list of submitted assignments")
+        print("4) Simulate Login")
+        print("5) Exit")
 
-    print("CCCU Examination Submission System")
-    print("1) Submit assingment")
-    print("2) Check if file submitted")
-    print("3) View list of submitted assignments")
-    print("4) Simulate Login")
-    print("5) Exit")
+        choice = input("Choose an option")
 
-    choice = input("Choose an option")
-
-    if choice == "1":
-        submit_assignment()
-    elif choice == "2":
-        check_submission()
-    elif choice == "3":
-        submission_list()
-    elif choice == "4":
-        login_sim()
-    elif choice == "5":
-        confirm = input("Confirm exit (Y/N)")
-        if confirm.lower() = "y"
-            print("Exiting")
-            break
-    else:
-        print("Invalid option , try again")
+        if choice == "1":
+            submit_assignment()
+        elif choice == "2":
+            check_submission()
+        elif choice == "3":
+            submission_list()
+        elif choice == "4":
+            login_sim()
+        elif choice == "5":
+            confirm = input("Confirm exit (Y/N)")
+            if confirm.lower() = "y"
+                print("Exiting")
+                break
+        else:
+            print("Invalid option , try again")
 
 menu()
 
