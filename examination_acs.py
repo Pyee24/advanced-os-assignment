@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 import os 
 import time
 
@@ -107,6 +108,7 @@ def login_sim():
     now = time.time()
     if username in last_attempt_time and now - last_attempt_time[username] < 60:
         print("Too many attempts within 60 seconds, suspicsious behaviour detected ")
+        return
     
     last_attempt_time[username] = now
 
@@ -122,7 +124,7 @@ def login_sim():
         failed_attempts[username] = failed_attempts.get(username, 0) + 1
 
 
-def log_login(username)
+def log_login(username):
     with open(LOGIN_LOG, "a") as log:
         log.write(f"{time.ctime()} - {username}\n")
 
@@ -135,7 +137,7 @@ def menu():
         print("4) Simulate Login")
         print("5) Exit")
 
-        choice = input("Choose an option")
+        choice = input("Choose an option: ")
 
         if choice == "1":
             submit_assignment()
@@ -147,7 +149,7 @@ def menu():
             login_sim()
         elif choice == "5":
             confirm = input("Confirm exit (Y/N)")
-            if confirm.lower() = "y"
+            if confirm.lower() == "y":
                 print("Exiting")
                 break
         else:
