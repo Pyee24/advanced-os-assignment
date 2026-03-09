@@ -50,7 +50,7 @@ def duplicate_detection(filename):
 
 
 def submit_assignment():
-    filename = input("Enter file path")
+    filename = input("Enter file path: ")
 
     validated,message = file_validation(filename)
     if not validated:
@@ -83,7 +83,7 @@ def submission_list():
 
 
 def check_submission():
-    filename = input("Input file for checking")
+    filename = input("Input file for checking: ")
     if filename in os.listdir(SUBMISSION_DIR):
         print("File has been submitted")
     else:
@@ -99,7 +99,7 @@ def log_submission(filename):
 
 
 def login_sim():
-    username = input("Input username:")
+    username = input("Input username: ")
 
     if failed_attempts.get(username, 0) >= 3:
         print("Account locked")
@@ -148,7 +148,7 @@ def menu():
         elif choice == "4":
             login_sim()
         elif choice == "5":
-            confirm = input("Confirm exit (Y/N)")
+            confirm = input("Confirm exit (Y/N): ")
             if confirm.lower() == "y":
                 print("Exiting")
                 break
