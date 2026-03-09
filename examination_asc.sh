@@ -44,7 +44,7 @@ check_duplicates()
     local file="$1"
     local filename=$(basename "$file")
 
-    if [[ -f "$SUBMISSION_DIR/$filename"]]; then
+    if [[ -f "$SUBMISSION_DIR/$filename" ]]; then
         if cmp -s "$file" "$SUBMISSION_DIR/$filename"]]; then
             echo "Duplicate files detected."
             return 1
@@ -75,7 +75,7 @@ submission_check()
 {
     read -p "Enter name of file to check: " filename
 
-    if [[ -f $SUBMISSION_DIR/$filename]]; then
+    if [[ -f $SUBMISSION_DIR/$filename ]]; then
         echo "File has been submitted"
     else
         echo "File has not been submitted"
@@ -96,13 +96,13 @@ login_simulation()
     failed_attempts=$(grep "$user:" "$ACCOUNT_STATUS" | cut -d':' -f2)
     locked=$(grep "$user:" "$ACCOUNT_STATUS" | cut -d':' -f3)
 
-    if [[ -z "failed_attempts"]]; then
+    if [[ -z "$failed_attempts" ]]; then
         failed_attempts=0
         locked=0
-        echo "$user:0:0" > "$ACCOUNT_STATUS"
+        echo "$user:0:0" >> "$ACCOUNT_STATUS"
     fi
 
-    if (( locked == 1)); then
+    if (( locked == 1 )); then
         echo "Account is locked due to repeated failure"
         return
     fi
@@ -110,12 +110,12 @@ login_simulation()
     read -p "Enter password (sim password is password1): " password
     time=$(date +%s)
 
-    last_attempt=$(tail -1 "$LOGIN_LOG" | awk '{print $NF}' )
+    last_attempt=$(tail -1 "$LOGIN_LOG" | awk -F'=' '{print $NF}' )
 
-    if [[ -n "$last_attempt"]]; then
+    if [[ -n "$last_attempt" ]]; then
         time_diff=$((time - last_attempt))
-        if ((diff < 60 )); then
-            echo "Suspicious behaviorui detected: Too many login attempts within 60 seconds"
+        if ((time_diff < 60 )); then
+            echo "Suspicious behaviour detected: Too many login attempts within 60 seconds"
             return
         fi
     fi
@@ -149,14 +149,22 @@ while true; do
     read -p "Choose an option: " choice
 
     case $choice in
-        1) assignment_submission() ;;
-        2) submission_check() ;;
-        3) list_submissions() ;;
-        4) login_simulation() ;;
+        1) assignment_submission ;;
+        2) submission_check ;;
+        3) list_submissions ;;
+        4) login_simulation ;;
         5) 
-            read -p "Are you sure you wish to exit? y/n): " exit
-            [[ "$exit" == ]] && exit 0
-            ;;
+            read -p "Are you sure you wish to exit? (Y/N): " ans
+                case "$ans" in
+                    [Yy])
+                        echo "You have exited the system"
+                        exit 0
+                        ;;
+                    *)
+                        echo "Exit cancelled"
+                        ;;
+                esac
+                ;;
         *) echo "Invalid choice" ;;
     esac
 done
