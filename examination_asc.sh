@@ -35,4 +35,17 @@ file_validation()
 
 }
 
+check_duplicates()
+{
+    local file="$1"
+    local filename=$(basename "$file")
 
+    if [[ -f "SUBMISSION_DIR/$filename"]]; then
+        if cmp -s "$file" "SUBMISSION_DIR/$filename"]]; then
+            echo "Duplicate files detected."
+            return 1
+        fi
+    fi
+
+    return 0
+}
