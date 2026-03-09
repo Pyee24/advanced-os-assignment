@@ -2,6 +2,8 @@ import os
 import time
 
 SUBMISSION_DIR = "submissions"
+SUBMISSION_LOG = "submission_log.txt"
+LOGIN_LOg = "login_log.txt"
 
 if not os.path.exists(SUBMISSION_DIR):
     os.makedirs(SUBMISSION_DIR)
@@ -34,5 +36,45 @@ def duplicate_detection(filename):
                 return True
     
     return False
+
+def submit_assignment():
+    filename = input("Enter file path")
+
+    validated,message = file_validation(filename)
+    if not validated:
+        print(message)
+        return
+    
+    if duplicate_detection(filename):
+        print("Duplicate file , rejected submission")
+        return
+
+    file_destination = os.path.join(SUBMISSION_DIR, os.path.basename(filename))
+    with open(filename, "rb") as file, open(file_destination, "wb") as dest:
+        dest.write(file.read())
+    
+
+def submission_list():
+    file_list = os.listdir(SUBMISSION_DIR)
+    if not file_list:
+        print("No submissions")
+    else:
+        print("Submitted assignments:")
+        for f in file_list:
+            print(f)
+
+def check_submission():
+    filename = input("Input file for checking")
+    if filename = os.listdir(SUBMISSION_DIR):
+        print("File has been submitted")
+    else:
+        print("File not submitted")
+
+    
+
+
+
+ 
+
 
 
