@@ -2,6 +2,8 @@
 
 SUBMISSION_DIR="submissions"
 LOG_SUBMISSIONS="submission_log.txt"
+ACCOUNT_STATUS="account_status.txt"
+LOGIN_LOG="login_log.txt"
 
 
 
@@ -88,5 +90,50 @@ list_submissions()
 
 login_simulation()
 {
-    
+    local user="student"
+
+    failed_attempts=$(grep "$user:" "$ACCOUNT_STATUS" | cut -d':' -f2)
+    locked=$(grep "$user:" "$ACCOUNT_STATUS" | cut -d':' -f3)
+
+    if [[ -z "failed_attempts"]]; then
+        failed_attempts=0
+        locked=0
+        echo "$user:0:0" > "$ACCOUNT_STATUS"
+    fi
+
+    if (( locked == 1)); then
+        echo "Account is locked due to repeated failure"
+        return
+    fi
+
+    read -p "Enter password (sim password is password1): " password
+    time=$(date +%s)
+
+    last_attempt=$(tail -1 "$LOGIN_LOG" | awk '{print $NF}' )
+
+    if [[ -n "$last_attempt"]]; then
+        time_diff=$((time - last_attempt))
+        if ((diff < 60 )); then
+            echo "Suspicious behaviorui detected: Too many login attempts within 60 seconds"
+            return
+        fi
+    fi
+
+    echo "$(date) User=$user Attempt_time=$time" >> "$LOGIN_LOG"
+
+    if [[ "$password" == "password1" ]]; then
+        echo "Successful login"
+        sed -i "s/$user:.*/$user:0:0/" "$ACCOUNT_STATUS"
+    else
+        echo "Incorrect password"
+        failed_attempts=$((failed_attempts + 1))
+
+        if ((failed_attempts >= 3 )); then
+            echo "Too many attempts , account locked"
+            sed -i "s/$user:.*/$user:$failed_attempts:1/" "$ACCOUNT_STATUS"
+        
+        else
+            sed -i "s/$user:.*/$user:$failed_attempts:0/" "$ACCOUNT_STATUS"
+        fi
+    fi
 }
