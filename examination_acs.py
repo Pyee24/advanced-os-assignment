@@ -9,6 +9,8 @@ if not os.path.exists(SUBMISSION_DIR):
     os.makedirs(SUBMISSION_DIR)
 
 
+
+
 def file_validation(filename):
     allowed_filename = [".pdf" , ".docx"]
 
@@ -24,6 +26,9 @@ def file_validation(filename):
     
     return True, "File passed validation"
 
+
+
+
 def duplicate_detection(filename):
     with open(filename, "rb") as new_file:
         new_data= new_file.read()
@@ -36,6 +41,9 @@ def duplicate_detection(filename):
                 return True
     
     return False
+
+
+
 
 def submit_assignment():
     filename = input("Enter file path")
@@ -53,6 +61,11 @@ def submit_assignment():
     with open(filename, "rb") as file, open(file_destination, "wb") as dest:
         dest.write(file.read())
     
+    log_submission(filename)
+    print("Successful submission")
+    
+
+
 
 def submission_list():
     file_list = os.listdir(SUBMISSION_DIR)
@@ -63,12 +76,23 @@ def submission_list():
         for f in file_list:
             print(f)
 
+
+
 def check_submission():
     filename = input("Input file for checking")
     if filename = os.listdir(SUBMISSION_DIR):
         print("File has been submitted")
     else:
         print("File not submitted")
+
+
+
+def log_submission(filename):
+    with open(SUBMISSION_LOG, "a") as log:
+        log.write(f"{time.ctime()} - Submitted: {filename}\n")
+
+
+
 
 def login_sim():
     username = input("Input username:")
@@ -78,8 +102,8 @@ def login_sim():
         return
     
     now = time.time()
-    if username in last_attempt_time and now - last_attempt_time[username] < 5:
-        print("Too many attempts within 5 seconds, suspicsious behaviour detected ")
+    if username in last_attempt_time and now - last_attempt_time[username] < 60:
+        print("Too many attempts within 60 seconds, suspicsious behaviour detected ")
     
     last_attempt_time[username] = now
 
@@ -95,7 +119,38 @@ def login_sim():
         failed_attempts[username] = failed_attempts.get(username, 0) + 1
 
 
-    
+def log_login(username)
+    with open(LOGIN_LOG, "a") as log:
+        log.write(f"{time.ctime()} - {username} - {status}\n")
+
+def menu():
+
+    print("CCCU Examination Submission System")
+    print("1) Submit assingment")
+    print("2) Check if file submitted")
+    print("3) View list of submitted assignments")
+    print("4) Simulate Login")
+    print("5) Exit")
+
+    choice = input("Choose an option")
+
+    if choice == "1":
+        submit_assignment()
+    elif choice == "2":
+        check_submission()
+    elif choice == "3":
+        submission_list()
+    elif choice == "4":
+        login_sim()
+    elif choice == "5":
+        confirm = input("Confirm exit (Y/N)")
+        if confirm.lower() = "y"
+            print("Exiting")
+            break
+    else:
+        print("Invalid option , try again")
+
+menu()
 
 
 
