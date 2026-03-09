@@ -3,8 +3,8 @@ import os
 import time
 
 SUBMISSION_DIR = "submissions"
-SUBMISSION_LOG = "submission_log2.txt"
-LOGIN_LOG = "login_log2.txt"
+SUBMISSION_LOG = "submission_log.txt"
+LOGIN_LOG = "login_log.txt"
 
 failed_attempts = {}
 last_attempt_time = {}

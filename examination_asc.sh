@@ -2,8 +2,8 @@
 
 SUBMISSION_DIR="submissions"
 LOG_SUBMISSIONS="submission_log.txt"
-ACCOUNT_STATUS="account_status.txt"
-LOGIN_LOG="login_log.txt"
+ACCOUNT_STATUS="account_status.txt2"
+LOGIN_LOG="login_log2.txt"
 
 
 
