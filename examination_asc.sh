@@ -8,6 +8,7 @@ LOGIN_LOG="login_log.txt"
 
 
 mkdir -p "$SUBMISSION_DIR"
+touch "$LOG_SUBMISSIONS" "$ACCOUNT_STATUS" "$LOGIN_LOG"
 
 file_validation()
 {
@@ -137,3 +138,25 @@ login_simulation()
         fi
     fi
 }
+
+while true; do
+    echo "CCCU Examination Submission System"
+    echo "1) Submit assingment"
+    echo "2) Check if file submitted"
+    echo "3) View list of submitted assignments"
+    echo "4) Simulate Login"
+    echo "5) Exit"
+    read -p "Choose an option: " choice
+
+    case $choice in
+        1) assignment_submission() ;;
+        2) submission_check() ;;
+        3) list_submissions() ;;
+        4) login_simulation() ;;
+        5) 
+            read -p "Are you sure you wish to exit? y/n): " exit
+            [[ "$exit" == ]] && exit 0
+            ;;
+        *) echo "Invalid choice" ;;
+    esac
+done
