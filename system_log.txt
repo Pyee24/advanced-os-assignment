@@ -2,3 +2,8 @@
 [2026-03-04 22:18:36] Top processes listed
 [2026-03-04 22:19:05] Terninated process 610
 [2026-03-04 22:19:11] System exited
+[2026-03-06 19:28:49] CPU and Memory usage viewed
+[2026-03-06 19:28:51] Top processes listed
+[2026-03-06 19:28:59] Blocked attempt to terminate critical process pid = 1
+[2026-03-06 19:29:10] Terninated process 578
+[2026-03-06 19:29:37] System exited
